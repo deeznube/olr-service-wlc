@@ -1,5 +1,3 @@
-
-import { text } from 'express';
 import CompanyService from './company.service.js'
 
 export const getCompany = async (req, res, next) => {
@@ -18,7 +16,7 @@ export const getCompany = async (req, res, next) => {
                 }
         
                 acc[item.companyName].round.push({
-                    name: item.idTest,
+                    name: item.subject,
                     dateStart: item.dateStart,
                     dateStop: item.dateStop,
                     url: `https://${item.alias}.thaijobjob.com/${item.companyAlias.replace(item.alias, '')}/`,

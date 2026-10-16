@@ -1,22 +1,72 @@
-import { pool } from '../database.js'
+import Company from "../model/companys.model.js";
 
 export default class CompanyService {
     async getAllCompany() {
-        const sql = `SELECT
-                        CompanyName AS companyName,
-                        CompanyAlias AS companyAlias,
-                        alias AS alias,
-                        DATE_FORMAT( dateStart, '%d-%m-%Y' ) AS dateStart,
-                        DATE_FORMAT( dateStop, '%d-%m-%Y' ) AS dateStop,
-                        IdTest AS idTest
-                    FROM
-                        tb_company 
-                    WHERE
-					    CURDATE() BETWEEN dateStart AND dateStop
-					    AND idTest NOT IN  ('test', '')
-						AND \`show\` = 1
-						AND alias NOT IN ('ccphseminar202501','ccphseminar202502', 'thaimed', 'irc');`
-        const [result] = await pool.query(sql)
-        return result
+        const company = await Company.aggregate([
+            {
+                $match: {
+                    subject: { $nin: ["test", ""] },
+                    show: "1",
+                    alias: {
+                        $nin: [
+                            "ccphseminar202501",
+                            "ccphseminar202502",
+                            "thaimed",
+                            "irc",
+                            "testolr2"
+                        ]
+                    }
+                }
+            },
+            {
+                $addFields: {
+                    startDateObj: {
+                        $dateFromString: {
+                            dateString: "$dateOpen",
+                            format: "%Y-%m-%d"
+                        }
+                    },
+                    stopDateObj: {
+                        $dateFromString: {
+                            dateString: "$dateClose",
+                            format: "%Y-%m-%d"
+                        }
+                    }
+                }
+            },
+            {
+                $match: {
+                    $expr: {
+                        $and: [
+                            { $lte: ["$startDateObj", new Date()] },
+                            { $gte: ["$stopDateObj", new Date()] }
+                        ]
+                    }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    companyName: "$companyName",
+                    companyAlias: "$companyAlias",
+                    alias: "$alias",
+                    dateStart: {
+                        $dateToString: {
+                            format: "%d-%m-%Y",
+                            date: "$startDateObj"
+                        }
+                    },
+                    dateStop: {
+                        $dateToString: {
+                            format: "%d-%m-%Y",
+                            date: "$stopDateObj"
+                        }
+                    },
+                    subject: "$subject"
+                }
+            }
+        ]);
+
+        return company
     }
 }
