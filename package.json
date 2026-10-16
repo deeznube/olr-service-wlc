@@ -1,30 +1,33 @@
 {
-  "name": "olr_wlc",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "type": "module",
-  "scripts": {
-    "local": "nodemon -r -L dotenv/config ./src/app.js dotenv_config_path=./.env.local",
-    "dev": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.dev",
-    "staging": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.staging",
-    "start": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.production",
-    "build:dev": "docker build -f Dockerfile.dev -t git.inet.co.th:5555/team-olr/olr-wlc:b-wlc-uat-9801 . && docker push git.inet.co.th:5555/team-olr/olr-wlc:b-wlc-uat-9801",
-    "build:start": "docker build -f Dockerfile.production -t git.inet.co.th:5555/team-olr/olr-wlc:b-wlc-prod-9811 . && docker push git.inet.co.th:5555/team-olr/olr-wlc:b-wlc-prod-9811"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "aws-sdk": "^2.1437.0",
-    "axios": "^1.4.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "express-fileupload": "^1.4.0",
-    "jsonwebtoken": "^9.0.1",
-    "mysql2": "^3.6.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  }
+    "name": "olr_wlc",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "type": "module",
+    "scripts": {
+        "local": "nodemon -r -L dotenv/config ./src/app.js dotenv_config_path=./.env.local",
+        "dev": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.dev",
+        "staging": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.staging",
+        "start": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.production",
+        "build:dev": "docker build -f Dockerfile.dev -t git.inet.co.th:5555/team-olr/olr-wlc:b-wlc-uat-9801 . && docker push git.inet.co.th:5555/team-olr/olr-wlc:b-wlc-uat-9801",
+        "build:start": "docker build -f Dockerfile.production -t git.inet.co.th:5555/team-olr/olr-wlc:b-wlc-prod-9811 . && docker push git.inet.co.th:5555/team-olr/olr-wlc:b-wlc-prod-9811"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "aws-sdk": "^2.1437.0",
+        "axios": "^1.4.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "express-fileupload": "^1.4.0",
+        "jsonwebtoken": "^9.0.1",
+        "mysql2": "^3.6.0",
+        "mongodb": "^6.16.0",
+        "mongoose": "^8.9.3",
+        "moment-timezone": "^0.5.46"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
 }

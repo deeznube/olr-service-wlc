@@ -1,16 +1,13 @@
 const config = {
     db: {
-        main: {
-            host: process.env.DATABASE_HOST,
-            database: process.env.DATABASE,
-            port: process.env.DATABASE_PORT,
-            user: process.env.DATABASE_USER,
-            password: process.env.DATABASE_PASSWORD,
-            waitForConnections: true,
-            connectionLimit: 10,
-            queueLimit: 0,
-            dateStrings: false
-        }
+        mongo: {
+            host: process.env.DB_HOST_MONGO,
+            port: process.env.DB_PORT_MONGO,
+            username: process.env.DB_USER_MONGO,
+            password: process.env.DB_PASSWORD_MONGO,
+            maxPoolSize: process.env.DB_POOL_SIZE_MONGO,
+            dbBox: process.env.DB_NAME_BOX
+        },
     },
     app: {
         port: process.env.PORT,
